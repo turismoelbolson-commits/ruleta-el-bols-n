@@ -100,19 +100,30 @@ function draw(){
   t.setAttribute("x",tx);t.setAttribute("y",ty);t.setAttribute("text-anchor","middle");t.setAttribute("dominant-baseline","middle");
   t.setAttribute("transform",`rotate(${mid*180/Math.PI+90} ${tx} ${ty})`);
   t.setAttribute("font-size",n>10?"12":"16");t.setAttribute("font-weight","900");t.setAttribute("font-family","Arial,sans-serif");
-  let words=d.name.split(" ");
-let line1="",line2="";
+ let words=d.name.split(" ");
+let lines=[],line="";
 words.forEach(word=>{
-  if((line1+" "+word).trim().length<=15) line1=(line1+" "+word).trim();
-  else line2=(line2+" "+word).trim();
+  let test=(line+" "+word).trim();
+  if(test.length<=12){
+    line=test;
+  }else{
+    if(line) lines.push(line);
+    line=word;
+  }
 });
+if(line) lines.push(line);
+
 t.innerHTML="";
-let s1=document.createElementNS("http://www.w3.org/2000/svg","tspan");
-s1.setAttribute("x",tx);s1.setAttribute("dy",line2?"-7":"0");s1.textContent=line1;t.appendChild(s1);
-if(line2){
-  let s2=document.createElementNS("http://www.w3.org/2000/svg","tspan");
-  s2.setAttribute("x",tx);s2.setAttribute("dy","14");s2.textContent=line2;t.appendChild(s2);
-}
+let lineHeight=13;
+let startY=ty-((lines.length-1)*lineHeight/2);
+
+lines.slice(0,3).forEach((txt,j)=>{
+  let span=document.createElementNS("http://www.w3.org/2000/svg","tspan");
+  span.setAttribute("x",tx);
+  span.setAttribute("y",startY+j*lineHeight);
+  span.textContent=txt;
+  t.appendChild(span);
+});
 svg.appendChild(t);
  });
 }
