@@ -101,7 +101,7 @@ function draw(){
   const [x1,y1]=polar(a1,242);
 
   const path=document.createElementNS("http://www.w3.org/2000/svg","path");
-  path.setAttribute("d",M250 250L${x0} ${y0}A242 242 0 0 1 ${x1} ${y1}Z);
+  path.setAttribute("d",'M250 250L${x0} ${y0}A242 242 0 0 1 ${x1} ${y1}Z);
   path.setAttribute("fill",colors[i%colors.length]);
   path.setAttribute("stroke","#fff");
   path.setAttribute("stroke-width","3");
@@ -115,7 +115,7 @@ function draw(){
   t.setAttribute("y",ty);
   t.setAttribute("text-anchor","middle");
   t.setAttribute("dominant-baseline","middle");
-  t.setAttribute("transform",rotate(${mid*180/Math.PI+90} ${tx} ${ty}));
+  t.setAttribute("transform",'rotate(${mid*180/Math.PI+90} ${tx} ${ty}));
   t.setAttribute("fill","#fff");
   t.setAttribute("font-family","Arial,sans-serif");
   t.setAttribute("font-weight","900");
