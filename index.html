@@ -125,6 +125,17 @@ lines.slice(0,3).forEach((txt,j)=>{
   t.appendChild(span);
 });
 svg.appendChild(t);
+let lineHeight=13;
+let startY=ty-((lines.length-1)*lineHeight/2);
+
+lines.slice(0,3).forEach((txt,j)=>{
+  let span=document.createElementNS("http://www.w3.org/2000/svg","tspan");
+  span.setAttribute("x",tx);
+  span.setAttribute("y",startY+j*lineHeight);
+  span.textContent=txt;
+  t.appendChild(span);
+});
+svg.appendChild(t);
  });
 }
 function inputs(){
