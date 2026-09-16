@@ -117,11 +117,41 @@ function draw(){
   t.setAttribute("dominant-baseline","middle");
   t.setAttribute("transform","rotate("+(mid*180/Math.PI+90)+" "+tx+" "+ty+")");
   t.setAttribute("fill","#fff");
-  t.setAttribute("font-size",n>10?"13":"17");
-  t.setAttribute("font-weight","800");
+  t.setAttribute("font-size",n>10?"11":"15");
+  t.setAttribute("font-weight","900");
+  t.setAttribute("font-family","Arial,sans-serif");
 
-  let label=d.name.length>18?d.name.slice(0,17)+"…":d.name;
-  t.textContent=label;
+ let words=d.name.split(" ");
+let lines=[];
+let line="";
+
+words.forEach(word=>{
+  let test=(line+" "+word).trim();
+  if(test.length<=10){
+    line=test;
+  }else{
+    if(line) lines.push(line);
+    line=word;
+  }
+});
+
+if(line) lines.push(line);
+
+if(lines.length>2){
+  lines=lines.slice(0,2);
+  lines[1]+="…";
+}
+
+const lineHeight=11;
+const startY=ty-((lines.length-1)*lineHeight/2);
+
+lines.forEach((txt,j)=>{
+  const span=document.createElementNS("http://www.w3.org/2000/svg","tspan");
+  span.setAttribute("x",tx);
+  span.setAttribute("y",startY+j*lineHeight);
+  span.textContent=txt;
+  t.appendChild(span);
+});
   svg.appendChild(t);
  });
 }
