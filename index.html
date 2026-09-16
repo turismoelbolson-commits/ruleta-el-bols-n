@@ -121,13 +121,13 @@ function draw(){
   t.setAttribute("font-weight","900");
   t.setAttribute("font-family","Arial,sans-serif");
 
- let words=d.name.split(" ");
+let words=d.name.split(" ");
 let lines=[];
 let line="";
 
 words.forEach(word=>{
   let test=(line+" "+word).trim();
-  if(test.length<=10){
+  if(test.length<=12){
     line=test;
   }else{
     if(line) lines.push(line);
@@ -142,7 +142,7 @@ if(lines.length>2){
   lines[1]+="…";
 }
 
-const lineHeight=11;
+const lineHeight=13;
 const startY=ty-((lines.length-1)*lineHeight/2);
 
 lines.forEach((txt,j)=>{
