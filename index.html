@@ -99,8 +99,21 @@ function draw(){
   const t=document.createElementNS("http://www.w3.org/2000/svg","text");
   t.setAttribute("x",tx);t.setAttribute("y",ty);t.setAttribute("text-anchor","middle");t.setAttribute("dominant-baseline","middle");
   t.setAttribute("transform",`rotate(${mid*180/Math.PI+90} ${tx} ${ty})`);
-  t.setAttribute("fill","#fff");t.setAttribute("font-size",n>10?"13":"17");t.setAttribute("font-weight","800");
-  let label=d.name.length>18?d.name.slice(0,17)+"…":d.name;t.textContent=label;svg.appendChild(t);
+  t.setAttribute("font-size",n>10?"12":"16");t.setAttribute("font-weight","900");t.setAttribute("font-family","Arial,sans-serif");
+  let words=d.name.split(" ");
+let line1="",line2="";
+words.forEach(word=>{
+  if((line1+" "+word).trim().length<=15) line1=(line1+" "+word).trim();
+  else line2=(line2+" "+word).trim();
+});
+t.innerHTML="";
+let s1=document.createElementNS("http://www.w3.org/2000/svg","tspan");
+s1.setAttribute("x",tx);s1.setAttribute("dy",line2?"-7":"0");s1.textContent=line1;t.appendChild(s1);
+if(line2){
+  let s2=document.createElementNS("http://www.w3.org/2000/svg","tspan");
+  s2.setAttribute("x",tx);s2.setAttribute("dy","14");s2.textContent=line2;t.appendChild(s2);
+}
+svg.appendChild(t);
  });
 }
 function inputs(){
