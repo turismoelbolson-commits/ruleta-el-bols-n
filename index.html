@@ -108,7 +108,7 @@ function draw(){
   svg.appendChild(path);
 
   const mid=a0+step/2;
-  const [tx,ty]=polar(mid,160);
+  const [tx,ty]=polar(mid,165);
 
   const t=document.createElementNS("http://www.w3.org/2000/svg","text");
   t.setAttribute("x",tx);
@@ -117,45 +117,11 @@ function draw(){
   t.setAttribute("dominant-baseline","middle");
   t.setAttribute("transform","rotate("+(mid*180/Math.PI+90)+" "+tx+" "+ty+")");
   t.setAttribute("fill","#fff");
-  t.setAttribute("font-family","Arial,sans-serif");
-  t.setAttribute("font-weight","900");
+  t.setAttribute("font-size",n>10?"13":"17");
+  t.setAttribute("font-weight","800");
 
-  let fontSize=n>10?12:16;
-  t.setAttribute("font-size",fontSize);
-
-  let words=d.name.split(" ");
-  let lines=[];
-  let line="";
-
-  words.forEach(word=>{
-    let test=(line+" "+word).trim();
-
-    if(test.length<=11){
-      line=test;
-    }else{
-      if(line) lines.push(line);
-      line=word;
-    }
-  });
-
-  if(line) lines.push(line);
-
-  if(lines.length>3){
-    lines=lines.slice(0,3);
-    lines[2]+="…";
-  }
-
-  const lineHeight=fontSize+2;
-  const startY=ty-((lines.length-1)*lineHeight/2);
-
-  lines.forEach((txt,j)=>{
-    const span=document.createElementNS("http://www.w3.org/2000/svg","tspan");
-    span.setAttribute("x",tx);
-    span.setAttribute("y",startY+j*lineHeight);
-    span.textContent=txt;
-    t.appendChild(span);
-  });
-
+  let label=d.name.length>18?d.name.slice(0,17)+"…":d.name;
+  t.textContent=label;
   svg.appendChild(t);
  });
 }
